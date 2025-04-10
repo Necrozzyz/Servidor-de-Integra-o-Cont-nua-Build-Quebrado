@@ -1,0 +1,56 @@
+# Instalação
+1-> Instalr o java 21: sudo apt install openjdk-21-jdk -y
+
+2-> Instalar o jenkins: Documentação oficial
+
+# Configuração
+
+
+Para garantir que o Jenkins também use essa versão, edite o arquivo de configuração do serviço:
+
+sudo nano /etc/default/jenkins
+
+Encontre ou adicione a linha:
+
+JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
+
+
+Passo 1: Configuração Inicial do Jenkins
+1. Descobrir o IP do Servidor
+
+Para acessar o Jenkins pelo navegador, você precisa saber o IP do seu servidor. Execute um dos seguintes comandos no terminal do Ubuntu Server:
+
+hostname -I
+
+ip a | grep inet
+
+
+2. Acessar o Jenkins
+
+No navegador do seu computador, digite:
+
+http://<IP_DO_SERVIDOR>:8080
+
+Caso veja uma tela pedindo senha, encontre a senha inicial executando este comando no terminal do servidor:
+
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+Copie a senha e cole no navegador para acessar o painel do Jenkins.
+
+3. Instalar Plugins Essenciais
+
+Depois de acessar o Jenkins:
+
+    Vá até Gerenciar Jenkins > Gerenciar Plugins.
+
+    Clique na aba Disponíveis e pesquise pelos seguintes plugins:
+
+        Pipeline → Para criar pipelines de CI/CD.
+
+        Git → Para permitir que o Jenkins trabalhe com repositórios Git.
+
+        GitHub Integration Plugin → Caso seu código esteja no GitHub.
+
+        JUnit Plugin → Para visualizar os resultados dos testes automatizados.
+
+
