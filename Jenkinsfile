@@ -23,7 +23,10 @@ pipeline {
 
         stage('Gerar relatório de testes') {
             steps {
-            sh 'PYTHONPATH=src ./venv/bin/pytest tests/ --junitxml=tests/results.xml'
+            sh '''
+                    export PYTHONPATH=$PYTHONPATH:$(pwd)/src
+                    ./venv/bin/pytest tests/ --junitxml=tests/results.xml
+                '''
             }
         }
 
