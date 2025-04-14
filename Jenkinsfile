@@ -1,23 +1,23 @@
 pipeline {
     agent any
+
     stages {
         stage('Instalar dependências') {
             steps {
-                sh 'python3 -m venv venv'
-                sh './venv/bin/pip install -r requirements.txt'
+                sh 'pip install -r requirements.txt'
             }
         }
 
         stage('Executar testes') {
             steps {
-                sh './venv/bin/python -m pytest tests/'
+                sh 'pytest tests/'
             }
         }
     }
 
     post {
         always {
-            junit 'tests/**/test-*.xml'
+            junit 'tests/results.xml'  // Se configurar pytest para gerar XML
         }
     }
 }
