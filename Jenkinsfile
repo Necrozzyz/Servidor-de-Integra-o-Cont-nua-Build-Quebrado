@@ -2,6 +2,13 @@ pipeline {
     agent any
 
     stages {
+
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Necrozzyz/Servidor-de-Integra-o-Cont-nua-Build-Quebrado.git'
+            }
+        }
+
         stage('Instalar dependências') {
             steps {
                 sh 'pip install -r requirements.txt'
