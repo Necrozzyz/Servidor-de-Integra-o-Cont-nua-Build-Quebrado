@@ -21,7 +21,7 @@ pipeline {
             }
         }
 
-        stage('Executar testes') {
+        stage('Gerar relatório de testes') {
             steps {
             sh './venv/bin/pytest tests/ --junitxml=tests/results.xml'
             }
