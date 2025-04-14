@@ -1,4 +1,4 @@
-# Servidor-de-Integra-o-Cont-nua-Build-Quebrado
+# SecureInbox - Simulador de Builds Quebrados
 
 Este projeto foi desenvolvido com o objetivo de ensinar alunos a identificar e corrigir falhas em pipelines de integração contínua usando Jenkins.
 
