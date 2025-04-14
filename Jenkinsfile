@@ -20,6 +20,13 @@ pipeline {
                 sh './venv/bin/pytest tests/'
             }
         }
+
+        stage('Executar testes') {
+            steps {
+            sh './venv/bin/pytest tests/ --junitxml=tests/results.xml'
+            }
+        }
+
     }
 
     post {
