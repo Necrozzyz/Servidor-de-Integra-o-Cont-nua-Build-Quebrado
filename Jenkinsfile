@@ -1,38 +1,23 @@
 pipeline {
     agent any
-
-    environment {
-        // Defina seu ambiente virtual, se necessário
-        VENV = ".venv"
-    }
-
     stages {
-        stage('Preparar Ambiente') {
+        stage('Instalar dependências') {
             steps {
-                echo 'Instalando dependências...'
-                sh 'python3 -m venv $VENV'
-                sh './$VENV/bin/pip install --upgrade pip'
-                sh './$VENV/bin/pip install -r requirements.txt'
+                sh 'python3 -m venv venv'
+                sh './venv/bin/pip install -r requirements.txt'
             }
         }
 
-        stage('Executar Testes') {
+        stage('Executar testes') {
             steps {
-                echo 'Executando testes...'
-                sh './$VENV/bin/python -m pytest --maxfail=1 --disable-warnings -q'
+                sh './venv/bin/python -m pytest tests/'
             }
         }
     }
 
     post {
         always {
-            echo 'Pipeline finalizada.'
-        }
-        success {
-            echo '✅ Build passou com sucesso!'
-        }
-        failure {
-            echo '❌ Build falhou. Verifique os testes.'
+            junit 'tests/**/test-*.xml'
         }
     }
 }
