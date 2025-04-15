@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        PYTHONPATH = "${workspace}/src"
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -23,10 +27,7 @@ pipeline {
 
         stage('Gerar relatório de testes') {
             steps {
-            sh '''
-                    export PYTHONPATH=$(pwd)/src
-                    ./venv/bin/pytest tests/ --junitxml=tests/results.xml
-                '''
+                sh './venv/bin/pytest tests/ --junitxml=tests/results.xml'
             }
         }
 
@@ -34,7 +35,7 @@ pipeline {
 
     post {
         always {
-            junit 'tests/results.xml'  // Se configurar pytest para gerar XML
+            junit 'tests/results.xml'
         }
     }
 }
