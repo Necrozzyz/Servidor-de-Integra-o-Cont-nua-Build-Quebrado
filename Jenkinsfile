@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        PYTHONPATH = "${workspace}/src"
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -21,13 +17,19 @@ pipeline {
 
         stage('Executar testes') {
             steps {
-                sh './venv/bin/pytest tests/'
+                sh '''
+                export PYTHONPATH=$(pwd)/src
+                ./venv/bin/pytest tests/
+                '''
             }
         }
 
         stage('Gerar relatório de testes') {
             steps {
-                sh './venv/bin/pytest tests/ --junitxml=tests/results.xml'
+                sh '''
+                export PYTHONPATH=$(pwd)/src # Garante que o PYTHONPATH esteja correto para gerar o relatório também
+                ./venv/bin/pytest tests/ --junitxml=tests/results.xml
+                '''
             }
         }
 
